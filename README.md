@@ -4,6 +4,8 @@ Ce projet permet de mettre à jour une vidéo Youtube avec comme titre "Cette vi
 Et ce texte aussi écrit sur une image qui sert de base nommé "base_image.png".<br/>
 XXX correspondant au nombre de vues de cette vidéo Youtube.<br/>
 
+Source image de base : https://imgur.com/D58V0IM
+
 ## 📋 Prérequis
 
 ### Compte Google et API YouTube
