@@ -30,8 +30,6 @@ def create_youtube_client():
     client_secrets_file = "clients.json"
     token_file = 'youtube_token.pickle'
     credentials = None
-    hostname = os.getenv("HOSTNAME")
-    bind_address = "0.0.0.0" if hostname else None
 
     if os.path.exists(token_file):
         with open(token_file, 'rb') as token:
@@ -45,8 +43,6 @@ def create_youtube_client():
             flow = google_auth_oauthlib.flow.InstalledAppFlow.from_client_secrets_file(
                 client_secrets_file, scopes)
             credentials = flow.run_local_server(
-                host=hostname if hostname else 'localhost',
-                bind_addr=bind_address,
                 port=int(os.getenv("PORT", "10100")),
                 open_browser=False
             )

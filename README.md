@@ -47,7 +47,6 @@ pip install -r requirements.txt
 VIDEO_ID =
 PORT = 10010
 COOLDOWN_SECONDS = 900
-HOSTNAME = test-youtube-api.dazu.fr # Optionel
 ```
 
 ## 🚀 Utilisation
