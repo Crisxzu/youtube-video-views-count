@@ -133,7 +133,6 @@ if __name__ == '__main__':
         print(f"View count: {view_count}")
         print(f"Category ID: {category_id}")
         update_video_title(youtube, category_id, view_count)
-        update_video_thumbnail(youtube)
         create_thumbnail(view_count)
         update_video_thumbnail(youtube)
         print("Update complete.")
