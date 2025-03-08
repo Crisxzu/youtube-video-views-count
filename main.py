@@ -36,6 +36,7 @@ def create_youtube_client():
             credentials = pickle.load(token)
 
     # Get credentials and create an API client
+    # Update : Improvements with support for refreshing token and saving token, to reuse it if always valid
     if not credentials or not credentials.valid:
         if credentials and credentials.expired and credentials.refresh_token:
             credentials.refresh(Request())
