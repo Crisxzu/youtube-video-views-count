@@ -5,6 +5,7 @@ Et ce texte aussi écrit sur une image qui sert de base nommé "base_image.png".
 XXX correspondant au nombre de vues de cette vidéo Youtube.<br/>
 
 Source image de base : https://imgur.com/D58V0IM
+Vidéo Youtube tutoriel : XXXX
 
 ## 📋 Prérequis
 
@@ -14,7 +15,7 @@ Source image de base : https://imgur.com/D58V0IM
 
 1. Créez un projet dans la [Google Developer Console](https://console.cloud.google.com/)
 2. Activez l'API YouTube Data v3
-3. Configurez l'écran de consentement OAuth
+3. Configurez l'écran de consentement OAuth (Préciser les permissions dont l'application aura besoin, S'ajouter en tant qu'utilisateur pouvant accéder à l'app)
 4. Créez des identifiants OAuth 2.0 pour une application de bureau
 5. Téléchargez le fichier JSON des identifiants et renommez-le en `clients.json`
 
