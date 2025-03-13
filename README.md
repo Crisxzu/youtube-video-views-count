@@ -4,8 +4,8 @@ Ce projet permet de mettre à jour une vidéo Youtube avec comme titre "Cette vi
 Et ce texte aussi écrit sur une image qui sert de base nommé "base_image.png".<br/>
 XXX correspondant au nombre de vues de cette vidéo Youtube.<br/>
 
-Source image de base : https://imgur.com/D58V0IM
-Vidéo Youtube tutoriel : XXXX
+Source image de base : https://imgur.com/D58V0IM <br/>
+Vidéo Youtube tutoriel : https://www.youtube.com/watch?v=7Al7N3CGlVw
 
 ## 📋 Prérequis
 
@@ -21,7 +21,7 @@ Vidéo Youtube tutoriel : XXXX
 
 ### Image personnalisée
 
-Préparez une image qui servira de base "base_image.png", elle doit correspondre aux critères de Youtube (< 2 MB) et 1280x720 de résolution.
+Préparez une image qui servira de base "base_image.png", elle doit correspondre aux critères de Youtube (≤ 2 MB) et 1280x720 de résolution.
 
 ## 💻 Installation
 
@@ -98,9 +98,9 @@ Pour forcer une nouvelle authentification, supprimez simplement ce fichier. <br/
 ## ⚠️ Limitations
 
 - YouTube limite la taille des miniatures à 2 Mo
-- Les formats acceptés sont JPG, PNG et GIF
+- Les formats acceptés sont JPG, PNG 
 - Vous devez être le propriétaire de la vidéo ou avoir les droits d'édition
-- L'API YouTube a des quotas d'utilisation quotidiens (le projet utilise 101 points par requête)
+- L'API YouTube a des quotas d'utilisation quotidiens (le projet utilise 101 points par cycle)
 
 ## 📄 Licence
 
