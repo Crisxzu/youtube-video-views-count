@@ -1,16 +1,16 @@
 import os
 
+import google
 import google_auth_oauthlib.flow
 import googleapiclient.discovery
 import googleapiclient.errors
 import pickle
 from google.auth.transport.requests import Request
-from PIL import Image, ImageDraw, ImageFont, ImageFilter
+from PIL import Image, ImageDraw, ImageFont
 
 from dotenv import load_dotenv
 from googleapiclient.http import MediaFileUpload
 import time
-from random import randint
 
 load_dotenv()
 
@@ -39,21 +39,28 @@ def create_youtube_client():
     # Update : Improvements with support for refreshing token and saving token, to reuse it if always valid
     if not credentials or not credentials.valid:
         if credentials and credentials.expired and credentials.refresh_token:
-            credentials.refresh(Request())
+            try:
+                credentials.refresh(Request())
+            except google.auth.exceptions.RefreshError:
+                credentials = create_credentials(client_secrets_file, token_file)
         else:
-            flow = google_auth_oauthlib.flow.InstalledAppFlow.from_client_secrets_file(
-                client_secrets_file, scopes)
-            credentials = flow.run_local_server(
-                port=int(os.getenv("PORT", "10100")),
-                open_browser=False
-            )
-
-            with open(token_file, 'wb') as token:
-                pickle.dump(credentials, token)
+            credentials = create_credentials(client_secrets_file, token_file)
 
     return googleapiclient.discovery.build(
         api_service_name, api_version, credentials=credentials)
 
+def create_credentials(client_secrets_file, token_file):
+    flow = google_auth_oauthlib.flow.InstalledAppFlow.from_client_secrets_file(
+        client_secrets_file, scopes)
+    credentials = flow.run_local_server(
+        port=int(os.getenv("PORT", "10100")),
+        open_browser=False
+    )
+
+    with open(token_file, 'wb') as token:
+        pickle.dump(credentials, token)
+
+    return credentials
 
 def create_thumbnail(views_count=1000):
     width, height = 1280, 720
@@ -97,18 +104,21 @@ def get_view_count(youtube):
     )
     response = request.execute()
 
-    return response['items'][0]['statistics']['viewCount'], response['items'][0]['snippet']['categoryId']
+    return (response['items'][0]['statistics']['viewCount'],
+            response['items'][0]['snippet']['categoryId'],
+            response['items'][0]['snippet']['description'])
 
 
-def update_video_title(youtube, category_id, views_count=1000):
+def update_video_title(youtube, category_id, description, views_count=1000):
     title = f"Cette vidéo a fait {views_count} vues"
     request = youtube.videos().update(
-        part="snippet,status,localizations",
+        part="snippet",
         body={
             "id": os.getenv("VIDEO_ID"),
             "snippet": {
                 "title": title,
                 "categoryId": category_id,
+                "description": description,
             },
         }
     )
@@ -129,11 +139,10 @@ if __name__ == '__main__':
     while True:
         print("Updating video...")
         youtube = create_youtube_client()
-        view_count, category_id = get_view_count(youtube)
-        view_count = randint(1000, 10000)
+        view_count, category_id, description = get_view_count(youtube)
         print(f"View count: {view_count}")
         print(f"Category ID: {category_id}")
-        update_video_title(youtube, category_id, view_count)
+        update_video_title(youtube, category_id, description, view_count)
         create_thumbnail(view_count)
         update_video_thumbnail(youtube)
         print("Update complete.")
