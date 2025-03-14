@@ -136,9 +136,9 @@ def update_video_thumbnail(youtube):
     return response.get('items') is not None
 
 if __name__ == '__main__':
+    youtube = create_youtube_client()
     while True:
         print("Updating video...")
-        youtube = create_youtube_client()
         view_count, category_id, description = get_view_count(youtube)
         print(f"View count: {view_count}")
         print(f"Category ID: {category_id}")
