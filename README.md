@@ -48,6 +48,8 @@ pip install -r requirements.txt
 VIDEO_ID =
 PORT = 10010
 COOLDOWN_SECONDS = 900
+UPDATE_TITLE = 0
+UPDATE_THUMBNAIL = 0
 ```
 
 ## 🚀 Utilisation

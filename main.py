@@ -136,16 +136,24 @@ def update_video_thumbnail(youtube):
     return response.get('items') is not None
 
 if __name__ == '__main__':
+    old_view_count = -1
     while True:
         youtube = create_youtube_client()
-        print("Updating video...")
         view_count, category_id, description = get_view_count(youtube)
         print(f"View count: {view_count}")
         print(f"Category ID: {category_id}")
-        update_video_title(youtube, category_id, description, view_count)
-        create_thumbnail(view_count)
-        update_video_thumbnail(youtube)
-        print("Update complete.")
+
+        if view_count != old_view_count:
+            print("Updating video...")
+            if bool(int(os.getenv("UPDATE_TITLE", 1))):
+                update_video_title(youtube, category_id, description, view_count)
+            if bool(int(os.getenv("UPDATE_THUMBNAIL", 1))):
+                create_thumbnail(view_count)
+                update_video_thumbnail(youtube)
+            old_view_count = view_count
+            print("Update complete.")
+        else:
+            print("No update.")
         print(f"Waiting {os.getenv('COOLDOWN_SECONDS')} seconds...")
         time.sleep(int(os.getenv("COOLDOWN_SECONDS")))
 
